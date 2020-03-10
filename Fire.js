@@ -55,7 +55,7 @@ class Fire {
 
 
 
-  loginUser = (email, pass, name) => {
+  loginUser = async(email, pass, name) => {
     var childData
     var childKey
     var datas = []

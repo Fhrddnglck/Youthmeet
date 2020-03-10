@@ -16,7 +16,7 @@ class ChatPage extends React.Component {
 
     get user() {
         return {
-            name: this.props.route.params.name,
+            name: this.props.navigation.state.params.name,
             _id: Fire.shared.uid,
         };
     }
@@ -32,7 +32,7 @@ class ChatPage extends React.Component {
             <GiftedChat
                 messages={this.state.messages}
                 onSend={Fire.shared.send}
-                //user={this.user}
+                user={{_id:1}}
                 renderUsernameOnMessage = {true}
             />
 
