@@ -12,8 +12,9 @@ import {
     KeyboardAvoidingView
 } from 'react-native'
 
-class SearchPage extends React.Component {
 
+class SearchPage extends React.Component {
+    
     render() {
         const navigation = this.props.navigation;
         return (

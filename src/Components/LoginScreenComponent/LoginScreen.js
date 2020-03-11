@@ -16,15 +16,14 @@ import Fire from '../../../Fire';
 
 
 class LoginScreen extends React.Component {
-    
     state = {
         mail : '',
         password : ''
     }
-     signUser = () =>{
+     signUser = async() =>{
         console.log(this.state.mail,this.state.password)
-        var user =  Fire.shared.loginUser(this.state.mail,this.state.password)
-         if(user === []) return
+        var user
+        await Fire.shared.loginUser(this.state.mail,this.state.password)
          console.log(Fire.shared.isVerified())
          if(Fire.shared.isVerified()){
               console.log('girdim abi')

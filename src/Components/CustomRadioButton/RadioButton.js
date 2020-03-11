@@ -18,9 +18,8 @@ export default class RadioButtons extends Component {
                             <TouchableOpacity
                                 style={[styles.circle,{borderColor:item.text=='Female'?'pink':'blue'}]}
                                 onPress={() => {
-                                    this.setState({
-                                        value: item.key,
-                                    });
+                                    this.props.currentChoose(item.key)
+                                    this.setState({value: item.key});
                                 }}
                             >
                                 {value === item.key && <View style={styles.checkedCircle} />}

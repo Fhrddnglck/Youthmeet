@@ -11,9 +11,11 @@ import {
     Switch,
     KeyboardAvoidingView
 } from 'react-native'
-
+import Fire from '../../../Fire';
 class AppTabsScreen extends React.Component {
-
+    componentDidMount(){
+        Fire.shared.userNameg() //request userNameq
+    }
     render() {
         const navigation = this.props.navigation;
         return (

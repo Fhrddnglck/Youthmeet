@@ -1,24 +1,28 @@
 import React, { Component } from 'react'
-import { View, Text, Button,ImageBackground, Image } from 'react-native'
+import { View, Text, Button, ImageBackground, Image } from 'react-native'
 import { GiftedChat } from 'react-native-gifted-chat'
 import Fire from '../../../Fire';
 
 
 class ChatPage extends React.Component {
 
-      static navigationOptions = ({ navigation }) => ({
-          title: (navigation.state.params || {}).name || 'Chat!',
-     });
+    static navigationOptions = ({ navigation }) => ({
+        title: (navigation.state.params || {}).name || 'Chat!',
+    });
 
     state = {
         messages: [],
     }
 
     get user() {
-        return {
-            name: this.props.navigation.state.params.name,
-            _id: Fire.shared.uid,
-        };
+        //console.log(Fire.shared.userName)
+        //return Fire.shared.userName
+         return {
+             avatar : require('../../Commons/LOGO.png'),
+             name: Fire.shared.userName,
+             _id: Fire.shared.uid,
+             
+         };
     }
 
     render() {
@@ -27,14 +31,15 @@ class ChatPage extends React.Component {
         //  const { name } = route.params
         return (
             <ImageBackground
-            source={require('../../Commons/BACKGROUND.png')} resizeMode='cover' style={{ width: '100%', height: '100%', flex: 1 }}
+                source={require('../../Commons/BACKGROUND.png')} resizeMode='cover' style={{ width: '100%', height: '100%', flex: 1 }}
             >
-            <GiftedChat
-                messages={this.state.messages}
-                onSend={Fire.shared.send}
-                user={{_id:1}}
-                renderUsernameOnMessage = {true}
-            />
+                <GiftedChat
+                    messages={this.state.messages}
+                    onSend={Fire.shared.send}
+                    user={this.user}
+                    renderUsernameOnMessage={true}
+                    showUserAvatar = {true}
+                />
 
             </ImageBackground>
         )

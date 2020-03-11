@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Text, Image } from 'react-native'
 
+import Icon from 'react-native-vector-icons/Ionicons'
 
 import MainPage from '../MainPageComponent/MainPage'
 import ChatPage from '../ChatPageComponent/ChatPage'
@@ -43,17 +44,29 @@ class AppTabsScreen extends React.Component {
 function SelectImage(label) {
     switch (label) {
         case 'MainPage':
-            return (<Image style={{ width: 25, height: 25 }}
-                source={require('../../Commons/TabsImage/HOME.png')} />)
+            return (<Icon
+                name='ios-home'
+                color='white'
+                size={36}
+            />)
         case 'ChatPage':
-            return (<Image style={{ width: 25, height: 25 }}
-                source={require('../../Commons/TabsImage/CHAT.png')} />)
+            return (<Icon
+                name='ios-chatbubbles'
+                color='white'
+                size={36}
+            />)
         case 'SearchPage':
-            return (<Image style={{ width: 25, height: 25 }}
-                source={require('../../Commons/TabsImage/SEARCH.png')} />)
+            return (<Icon
+                name='ios-search'
+                color='white'
+                size={36}
+            />)
         case 'ProfilePage':
-            return (<Image style={{ width: 25, height: 25 }}
-                source={require('../../Commons/TabsImage/PROFILE.png')} />)
+            return (<Icon
+                name='ios-person'
+                color='white'
+                size={36}
+            />)
     }
 }
 
@@ -97,9 +110,9 @@ function MyTabBar({ state, descriptors, navigation }) {
                         testID={options.tabBarTestID}
                         onPress={onPress}
                         onLongPress={onLongPress}
-                        style={{ flex: 1, height: 50, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginLeft: 1,backgroundColor: isFocused? '#97c0de' : 'white' }}
+                        style={{ flex: 0.5, height: 50, flexDirection: 'row', justifyContent: 'center', alignItems: 'center',backgroundColor: isFocused ? '#535353' : '#1F1C1B'}}
                     >
-                            {SelectImage(label)}
+                        {SelectImage(label)}
                     </TouchableOpacity>
                 );
             })}

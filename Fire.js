@@ -1,5 +1,8 @@
 import firebase from 'firebase'; // 4.8.1
-import {navigateMainPage} from './src/Components/LoginScreenComponent/LoginScreen'
+
+var userName = ''
+
+
 class Fire {
   constructor() {
     this.init();
@@ -32,6 +35,23 @@ class Fire {
     return firebase.database().ref('users');
   }
 
+  get userName(){
+    return userName
+  }
+
+  userNameg = async ()=> {
+    await firebase.database().ref('/users/').once('value').then(snapshot=>{
+      snapshot.forEach(val=>{
+        if(firebase.auth().currentUser.uid===val.val()._uid){
+          console.log('myid'+val.val()._uid)
+          console.log('userid'+firebase.auth().currentUser.uid)
+          userName = val.val().name
+        }
+      })
+    })
+  }
+
+
   createNewUser = (email, pass, name, gender) => {
 
     firebase.auth().createUserWithEmailAndPassword(email, pass).then(result => {
@@ -56,19 +76,15 @@ class Fire {
 
 
   loginUser = async(email, pass, name) => {
-    var childData
-    var childKey
     var datas = []
-    firebase.auth().signInWithEmailAndPassword(email, pass)
+    await firebase.auth().signInWithEmailAndPassword(email, pass)
       .catch(error => {
-        console.log('LOGIN USER HATASI')
         alert(error)
       })
     return datas
   }
 
   isVerified = () => {
-    console.log(firebase.auth().currentUser)
     if (firebase.auth().currentUser != undefined) {
       if (firebase.auth().currentUser.emailVerified) return 1
       else return 0
@@ -119,10 +135,12 @@ class Fire {
   signOut() {
     firebase.auth().signOut()
   }
+
   // close the connection to the Backend
   off() {
     this.ref.off();
   }
+
 }
 
 Fire.shared = new Fire();
