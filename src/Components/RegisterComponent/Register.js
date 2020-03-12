@@ -86,11 +86,17 @@ class Register extends React.Component {
                     )}
                 </View>
                 <KeyboardAvoidingView behavior='position' style={{ flex: 0.35, justifyContent: 'space-around' }}>
+                    <View style={{backgroundColor:'red',flexDirection:'row'}}>
+                        <Icon
+                        name='ios-mail'
+                        color={64}
+                        />
                     <TextInput
                         onChangeText={value => this.setState({ mail: value })}
                         placeholder='E-mail'
                         style={{ backgroundColor: 'white', width: 300, borderRadius: 180, padding: 15, marginLeft: 24, marginTop: 10 }}
                     />
+                    </View>
                     <TextInput
                         placeholder='Password'
                         onChangeText={value => this.setState({ password: value })}

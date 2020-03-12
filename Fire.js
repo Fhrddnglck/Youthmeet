@@ -89,6 +89,7 @@ class Fire {
 
 
   loginUser = async(email, pass, name) => {
+    console.log(email)
     var datas = []
     await firebase.auth().signInWithEmailAndPassword(email, pass)
     .then(
@@ -161,7 +162,7 @@ class Fire {
     var listRef = this.refImages.child('images/')
     listRef.listAll().then(res=>{
       res.items.forEach(val=>{
-        if(val.name === this.email){
+        if(val.name.toUpperCase() === this.email.toUpperCase()){
           val.getDownloadURL().then(url=>{
             var xhr = new XMLHttpRequest();
             xhr.responseType = 'blob'
