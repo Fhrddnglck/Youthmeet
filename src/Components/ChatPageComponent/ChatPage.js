@@ -15,10 +15,8 @@ class ChatPage extends React.Component {
     }
 
     get user() {
-        //console.log(Fire.shared.userName)
-        //return Fire.shared.userName
          return {
-             avatar : require('../../Commons/LOGO.png'),
+             avatar : Fire.shared.profilePicture,
              name: Fire.shared.userName,
              _id: Fire.shared.uid,
              

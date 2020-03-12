@@ -1,7 +1,8 @@
 import firebase from 'firebase'; // 4.8.1
 
 var userName = ''
-
+var img = ''
+var mymail = ''
 
 class Fire {
   constructor() {
@@ -32,19 +33,27 @@ class Fire {
     return firebase.database().ref('messages');
   }
   get refUser() {
-    return firebase.database().ref('users');
+    return firebase.database().ref('users')
   }
-
+  get refImages(){
+    return firebase.storage().ref()
+  }
   get userName(){
     return userName
+  }
+  get profilePicture(){
+    return img
+  }
+  get email(){
+    return mymail
   }
 
   userNameg = async ()=> {
     await firebase.database().ref('/users/').once('value').then(snapshot=>{
       snapshot.forEach(val=>{
         if(firebase.auth().currentUser.uid===val.val()._uid){
-          console.log('myid'+val.val()._uid)
-          console.log('userid'+firebase.auth().currentUser.uid)
+          //console.log('myid'+val.val()._uid)
+          //console.log('userid'+firebase.auth().currentUser.uid)
           userName = val.val().name
         }
       })
@@ -52,10 +61,13 @@ class Fire {
   }
 
 
-  createNewUser = (email, pass, name, gender) => {
+  createNewUser = (email, pass, name, gender,photouri) => {
 
     firebase.auth().createUserWithEmailAndPassword(email, pass).then(result => {
       const _uid = result.user.uid
+      var metadata = { //for image access
+        name: _uid
+      }
       const UserInf = {
         email,
         pass,
@@ -63,6 +75,7 @@ class Fire {
         gender,
         _uid
       }
+      this.refImages.child('images/'+email).put(photouri,metadata)
       this.refUser.push(UserInf)
       firebase.auth().currentUser.sendEmailVerification();
     }).catch(function (error) {
@@ -78,7 +91,10 @@ class Fire {
   loginUser = async(email, pass, name) => {
     var datas = []
     await firebase.auth().signInWithEmailAndPassword(email, pass)
-      .catch(error => {
+    .then(
+      mymail = email
+    )
+    .catch(error => {
         alert(error)
       })
     return datas
@@ -140,6 +156,28 @@ class Fire {
   off() {
     this.ref.off();
   }
+
+  getImage(){
+    var listRef = this.refImages.child('images/')
+    listRef.listAll().then(res=>{
+      res.items.forEach(val=>{
+        if(val.name === this.email){
+          val.getDownloadURL().then(url=>{
+            var xhr = new XMLHttpRequest();
+            xhr.responseType = 'blob'
+            xhr.onload = ()=>{
+              var blob = xhr.response
+            };
+            xhr.open('GET',url)
+            xhr.send()
+            img  = url
+            console.log(val.name)
+          })
+        }
+      })
+    })
+  }
+
 
 }
 

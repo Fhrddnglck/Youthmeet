@@ -11,26 +11,26 @@ import {
     Switch,
     KeyboardAvoidingView
 } from 'react-native'
+
 import Fire from '../../../Fire';
 
 
 
 class LoginScreen extends React.Component {
+
     state = {
         mail : '',
         password : ''
     }
+
      signUser = async() =>{
         console.log(this.state.mail,this.state.password)
-        var user
         await Fire.shared.loginUser(this.state.mail,this.state.password)
          console.log(Fire.shared.isVerified())
          if(Fire.shared.isVerified()){
-              console.log('girdim abi')
              this.props.navigation.navigate('MainPage')
          }
          else {
-             console.log('SIGN FONKSITON HATASI')
              alert('NOT VERIFIED')
         }
     }
@@ -40,7 +40,6 @@ class LoginScreen extends React.Component {
     
     render() {
        
-        const navigation = this.props.navigation;
         return (
             <ImageBackground source={require('../../Commons/BACKGROUND.png')} resizeMode='cover' style={{ width: '100%', height: '100%', flex: 1 }}>
                 <StatusBar
@@ -55,45 +54,13 @@ class LoginScreen extends React.Component {
                 <View style={{ flex: 0.3, alignItems: 'center', flexDirection: 'column', justifyContent: 'space-around' }}>
                     <TextInput
                         onChangeText = {(value)=>this.setState({mail:value})}
-                        style={{
-                            backgroundColor: 'white',
-                            borderRadius: 180,
-                            width: '75%',
-                            height: 70,
-                            padding: 16,
-                            fontSize: 15,
-                            fontWeight: 'bold',
-                            shadowColor: '#000',
-                            shadowOffset: {
-                                width: 0,
-                                height: 11,
-                            },
-                            shadowOpacity: 0.57,
-                            shadowRadius: 15.19,
-                            elevation: 23
-                        }}
+                        style={styles.TextInputs}
                         placeholder='john@gmail.com'
                         placeholderTextColor='black'
                     />
                     <TextInput
                     onChangeText = {(value)=>this.setState({password:value})}
-                        style={{
-                            backgroundColor: 'white',
-                            borderRadius: 180,
-                            width: '75%',
-                            height: 70,
-                            padding: 16,
-                            fontSize: 15,
-                            fontWeight: 'bold',
-                            shadowColor: '#000',
-                            shadowOffset: {
-                                width: 0,
-                                height: 11,
-                            },
-                            shadowOpacity: 0.57,
-                            shadowRadius: 15.19,
-                            elevation: 23
-                        }}
+                        style={styles.TextInputs}
                         placeholder='********'
                         placeholderTextColor='black'
                         secureTextEntry={true}
@@ -138,6 +105,23 @@ const styles = StyleSheet.create({
         width: 250,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    TextInputs : {
+        backgroundColor: 'white',
+        borderRadius: 180,
+        width: '75%',
+        height: 70,
+        padding: 16,
+        fontSize: 15,
+        fontWeight: 'bold',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 11,
+        },
+        shadowOpacity: 0.57,
+        shadowRadius: 15.19,
+        elevation: 23
     }
 })
 

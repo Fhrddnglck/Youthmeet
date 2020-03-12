@@ -15,18 +15,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import ImagePicker from 'react-native-image-picker';
 
 import Fire from '../../../Fire';
-
-
-const options = [
-    {
-        key: 'Male',
-        text: 'Male',
-    },
-    {
-        key: 'Female',
-        text: 'Female',
-    }
-];
+import {options} from './GenderOptions'
 
 class Register extends React.Component {
     state = {
@@ -42,11 +31,10 @@ class Register extends React.Component {
             title: 'Select Avatar',
             customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
             storageOptions: {
-              skipBackup: true,
-              path: 'images',
+                skipBackup: true,
+                path: 'images',
             },
-          };
-        console.log('girdim')
+        };
         ImagePicker.launchImageLibrary(options, response => {
             if (response.uri) {
                 this.setState({ photouri: response.uri, photo: response });
@@ -59,8 +47,11 @@ class Register extends React.Component {
             gender: key
         })
     }
-    createNewUser = () => {
-        Fire.shared.createNewUser(this.state.mail, this.state.password, this.state.name, this.state.gender)
+    createNewUser = async () => {
+        const response = await fetch(this.state.photouri)
+        const blob = await response.blob()
+        console.log(blob)
+        Fire.shared.createNewUser(this.state.mail, this.state.password, this.state.name, this.state.gender, blob)
     }
     controlNewUser = () => {
         if (this.state.mail.search('edu') != -1) {
@@ -90,11 +81,10 @@ class Register extends React.Component {
                     {photo && (
                         <Image
                             source={{ uri: photo.uri }}
-                            style={{width: 121, height: 121, marginTop: 8, borderRadius: 180 }}
+                            style={{ width: 121, height: 121, marginTop: 8, borderRadius: 180 }}
                         />
                     )}
                 </View>
-
                 <KeyboardAvoidingView behavior='position' style={{ flex: 0.35, justifyContent: 'space-around' }}>
                     <TextInput
                         onChangeText={value => this.setState({ mail: value })}
