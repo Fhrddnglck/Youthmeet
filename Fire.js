@@ -179,6 +179,16 @@ class Fire {
     })
   }
 
+  sendResetPassword = async(email) =>{
+    var auth = firebase.auth();
+    await auth.sendPasswordResetEmail(email).then(function() {
+      alert('PLEASE CONTROL TO YOUR MAIL')
+    }).catch(function(error) {
+      alert(error)
+    });
+  }
+
+
 
 }
 

@@ -11,7 +11,7 @@ import {
     Switch,
     KeyboardAvoidingView
 } from 'react-native'
-
+import AsyncStorage from '@react-native-community/async-storage'
 import Fire from '../../../Fire';
 
 
@@ -20,11 +20,40 @@ class LoginScreen extends React.Component {
 
     state = {
         mail : '',
-        password : ''
+        password : '',
+        rememberMe : false
     }
-
+    componentDidMount(){
+        this.getData()
+    }
+    storeData = async () => {
+        try {
+            if(this.state.rememberMe){
+                console.log('stroreliyom')
+                await AsyncStorage.setItem('storage_Key', this.state.mail)
+                await AsyncStorage.setItem('rememberMe',JSON.stringify(this.state.rememberMe))
+            }
+        } catch (e) {
+          // saving error
+        }
+      }
+      getData = async () => {
+          console.log('sss')
+        try {
+          const value = await AsyncStorage.getItem('storage_Key')
+          const isRemember = await AsyncStorage.getItem('rememberMe')
+          if(value !== null && isRemember==='true') {
+              console.log('giriyom')
+            // value previously stored
+            this.setState({mail:value})
+          }
+        } catch(e) {
+          // error reading value
+        }
+      }
      signUser = async() =>{
         console.log(this.state.mail,this.state.password)
+        this.storeData()
         await Fire.shared.loginUser(this.state.mail,this.state.password)
          console.log(Fire.shared.isVerified())
          if(Fire.shared.isVerified()){
@@ -55,6 +84,7 @@ class LoginScreen extends React.Component {
                     <TextInput
                         onChangeText = {(value)=>this.setState({mail:value})}
                         style={styles.TextInputs}
+                        defaultValue = {this.state.mail}
                         placeholder='john@gmail.com'
                         placeholderTextColor='black'
                     />
@@ -74,6 +104,9 @@ class LoginScreen extends React.Component {
                     <Switch
                         thumbColor='white'
                         style={{ width: 50, height: 25}}
+                        trackColor = 'yellow'
+                        onValueChange = {()=>this.setState({rememberMe:!this.state.rememberMe})}
+                        value = {this.state.rememberMe}
                     />
                 </View>
                 <View style={{ flex: 0.3, alignItems: 'center', flexDirection: 'column', justifyContent: 'space-evenly' }}>
@@ -84,7 +117,9 @@ class LoginScreen extends React.Component {
                             <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 30 }}>LOGIN</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                    onPress = {()=>this.props.navigation.navigate('ForgotPass')}
+                    >
                         <Text style={{ fontWeight: '100', color: 'white' }}>Forgot Password?</Text>
 
                     </TouchableOpacity>

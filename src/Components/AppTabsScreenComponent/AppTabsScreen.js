@@ -4,8 +4,9 @@ import { View, TouchableOpacity, Text, Image } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 import MainPage from '../MainPageComponent/MainPage'
-import ChatPage from '../ChatPageComponent/ChatPage'
 import SearchPage from '../SearchPage/SearchPage'
+import NewGroup from '../NewGroupComponent/NewGroup'
+import ChatPage from '../ChatPageComponent/ChatPage'
 import ProfilePage from '../ProfilePage/ProfilePage'
 
 
@@ -26,6 +27,10 @@ class AppTabsScreen extends React.Component {
                 <Tab.Screen
                     name="SearchPage"
                     component={SearchPage}
+                />
+                <Tab.Screen
+                    name="NewGroup"
+                    component={NewGroup}
                 />
                 <Tab.Screen
                     name="ChatPage"
@@ -52,6 +57,12 @@ function SelectImage(label) {
         case 'ChatPage':
             return (<Icon
                 name='ios-chatbubbles'
+                color='white'
+                size={36}
+            />)
+        case 'NewGroup':
+            return (<Icon
+                name='ios-add-circle'
                 color='white'
                 size={36}
             />)
@@ -110,7 +121,7 @@ function MyTabBar({ state, descriptors, navigation }) {
                         testID={options.tabBarTestID}
                         onPress={onPress}
                         onLongPress={onLongPress}
-                        style={{ flex: 0.5, height: 50, flexDirection: 'row', justifyContent: 'center', alignItems: 'center',backgroundColor: isFocused ? '#535353' : '#1F1C1B'}}
+                        style={{ flex: 0.5, height: 50, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: isFocused ? '#535353' : '#1F1C1B' }}
                     >
                         {SelectImage(label)}
                     </TouchableOpacity>

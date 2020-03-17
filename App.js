@@ -5,7 +5,7 @@ import React from 'react';
 import FirstScreen from './src/Components/FirstScreenComponent/FirstScreen'
 import LoginScreen from './src/Components/LoginScreenComponent/LoginScreen'
 import Register from './src/Components/RegisterComponent/Register'
-
+import ForgotPass from './src/Components/ForgotPasswordComponent/ForgotPass'
 
 import AppTabsScreen from './src/Components/AppTabsScreenComponent/AppTabsScreen'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -79,6 +79,21 @@ class App extends React.Component {
           <Stack.Screen
             name="Register"
             component={Register}
+            options={{
+              headerTitle: props => <LogoTitle {...props} />,
+              headerTitleAlign: 'center',
+              headerStyle: {
+                backgroundColor: '#222223',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+            }}
+          />
+          <Stack.Screen
+            name="ForgotPass"
+            component={ForgotPass}
             options={{
               headerTitle: props => <LogoTitle {...props} />,
               headerTitleAlign: 'center',
