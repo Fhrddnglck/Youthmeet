@@ -128,7 +128,7 @@ class Register extends React.Component {
                     </View>
                 </KeyboardAvoidingView>
 
-                <KeyboardAvoidingView behavior='padding' style={{ flexDirection: 'column', flex: 0.2, alignItems: 'center', justifyContent: 'space-evenly' }}>
+                <KeyboardAvoidingView behavior='padding' style={{ flexDirection: 'column', flex: 0.2, alignItems: 'center', justifyContent: 'space-evenly',marginTop:16 }}>
                     <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 25 }}>I'm a</Text>
                     <RadioButton options={options} currentChoose={(key) => this.currentChoose(key)} />
                 </KeyboardAvoidingView>

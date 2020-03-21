@@ -9,13 +9,14 @@ import {
     StatusBar,
     TextInput,
     Switch,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    Dimensions
 } from 'react-native'
 import Fire from '../../../Fire';
 import Icon from 'react-native-vector-icons/Ionicons'
 
 class ProfilePage extends React.Component {
-    LogOut = ()=>{
+    LogOut = () => {
         Fire.shared.signOut()
         this.props.navigation.navigate('First')
     }
@@ -29,40 +30,40 @@ class ProfilePage extends React.Component {
                     backgroundColor='#222223'
                     hidden={false}
                 />
-                <View style={{flexDirection:'row'}}>
+                <View style={{ flexDirection: 'row' }}>
                     <View>
                         <Image
-                        source = {{uri:Fire.shared.profilePicture}}
-                        style={{borderRadius:180,backgroundColor:'white',width:120,height:120,marginLeft:8,marginTop:8}}
+                            source={{ uri: Fire.shared.profilePicture }}
+                            style={{ borderRadius: 180, backgroundColor: 'white', width: 120, height: 120, marginLeft: 8, marginTop: 8 }}
                         />
                     </View>
-                    <View style={{alignItems:'center',marginTop:16}}>
-        <Text style={{fontWeight:'bold',fontSize:25,color:'white'}}>{Fire.shared.userName}</Text>
-        <Text style={{color:'white',marginTop:16,marginLeft:8}}>{Fire.shared.email}</Text>
+                    <View style={{ alignItems: 'center', marginTop: 16 }}>
+                        <Text style={{ fontWeight: 'bold', fontSize: 25, color: 'white' }}>{Fire.shared.userName}</Text>
+                        <Text style={{ color: 'white', marginTop: 16, marginLeft: 8, fontSize: 12 }}>{Fire.shared.email}</Text>
                     </View>
                 </View>
-                <View style={{alignItems:'center',marginTop:16}}>
+                <View style={{ alignItems: 'center', marginTop: 16 }}>
                     <TouchableOpacity
-                    style={{flexDirection:'row',alignItems:'center',backgroundColor:'#7646FF',width:'50%',borderRadius:5,height:50,justifyContent:'space-evenly'}}
+                        style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#7646FF', width: '50%', borderRadius: 5, height: 50, justifyContent: 'space-evenly' }}
                     >
                         <Icon
-                        name='md-settings'
-                        size={36}
-                        color = 'white'
+                            name='md-settings'
+                            size={36}
+                            color='white'
                         />
-                        <Text style={{color:'white',fontSize:16,fontWeight:'bold'}}>SETTINGS</Text>
+                        <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>SETTINGS</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={{alignItems:'center',marginTop:'auto'}}>
+                <View style={{ alignItems: 'center', marginTop: 'auto' }}>
                     <TouchableOpacity
-                    onPress = {()=>this.LogOut()}
+                        onPress={() => this.LogOut()}
                     >
-                    <Icon
-                    name = 'ios-log-out'
-                    size = {64}
-                    color = 'white'
-                    />
-                    <Text style={{color:'white',fontWeight:'bold'}}>LOG OUT</Text>
+                        <Icon
+                            name='ios-log-out'
+                            size={64}
+                            color='white'
+                        />
+                        <Text style={{ color: 'white', fontWeight: 'bold' }}>LOG OUT</Text>
                     </TouchableOpacity>
                 </View>
 

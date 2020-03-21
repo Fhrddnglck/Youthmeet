@@ -80,7 +80,7 @@ class LoginScreen extends React.Component {
                     <Text style={{ fontWeight: 'bold', fontSize: 25, marginLeft: 36, color: 'white' }}>Login to {'\n'} your account</Text>
                 </View>
 
-                <View style={{ flex: 0.3, alignItems: 'center', flexDirection: 'column', justifyContent: 'space-around' }}>
+                <View style={{ flex: 0.3, alignItems: 'center', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <TextInput
                         onChangeText = {(value)=>this.setState({mail:value})}
                         style={styles.TextInputs}
@@ -90,7 +90,7 @@ class LoginScreen extends React.Component {
                     />
                     <TextInput
                     onChangeText = {(value)=>this.setState({password:value})}
-                        style={styles.TextInputs}
+                        style={[styles.TextInputs,{marginTop:8}]}
                         placeholder='********'
                         placeholderTextColor='black'
                         secureTextEntry={true}
@@ -99,7 +99,7 @@ class LoginScreen extends React.Component {
                 </View>
 
 
-                <View style={{ flex: 0.1, flexDirection: 'row', justifyContent: 'center', marginTop: 16 }}>
+                <View style={{ flex: 0.1, flexDirection: 'row', justifyContent: 'center', marginTop: 36 }}>
                     <Text style={{ color: 'white', marginLeft: 36 }}>Remember me</Text>
                     <Switch
                         thumbColor='white'
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.57,
         shadowRadius: 15.19,
-        elevation: 23
+        elevation: 23,
     }
 })
 

@@ -19,7 +19,7 @@ class FirstScreen extends React.Component {
                     backgroundColor='#222223'
                     hidden={false}
                 />
-                <View style={{ flex: 0.4 }}>
+                <View style={{ flex: 0.1 }}>
 
                 </View>
                 <View style={styles.AppName}>
