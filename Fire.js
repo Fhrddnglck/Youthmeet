@@ -35,6 +35,9 @@ class Fire {
   get refUser() {
     return firebase.database().ref('users')
   }
+  get refGroup(){
+    return firebase.database().ref('groups')
+  }
   get refImages(){
     return firebase.storage().ref()
   }
@@ -84,6 +87,21 @@ class Fire {
       if (errorCode == 'auth/email-already-in-use') alert('Email already in use')
       else alert(errorMessage)
     })
+  }
+
+  createNewGroup = (name,type,university,photouri) =>{
+    var key = this.refGroup.push().key
+    var leader = firebase.auth().currentUser.uid
+    university = university.toString()
+    const GroupInfo = {
+      name,
+      type,
+      university,
+      key,
+      leader
+    }
+    this.refImages.child('groupImages/'+key).put(photouri)
+    this.refGroup.push(GroupInfo)
   }
 
 
