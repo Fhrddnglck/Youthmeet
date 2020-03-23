@@ -3,7 +3,8 @@ import firebase from 'firebase'; // 4.8.1
 var userName = ''
 var img = ''
 var mymail = ''
-
+var groupName = []
+var groupKey = []
 class Fire {
   constructor() {
     this.init();
@@ -32,8 +33,8 @@ class Fire {
   get ref() {
     return firebase.database().ref('messages');
   }
-  get refUser() {
-    return firebase.database().ref('users')
+  refUser = (uid) => {
+    return firebase.database().ref('users/'+uid+'/')
   }
   get refGroup(){
     return firebase.database().ref('groups')
@@ -49,6 +50,12 @@ class Fire {
   }
   get email(){
     return mymail
+  }
+  get groupsName(){
+    return groupName
+  }
+  get groupsKey(){
+    return groupKey
   }
 
   userNameg = async ()=> {
@@ -79,7 +86,7 @@ class Fire {
         _uid
       }
       this.refImages.child('images/'+email).put(photouri,metadata)
-      this.refUser.push(UserInf)
+      this.refUser(firebase.auth().currentUser.uid).push(UserInf)
       firebase.auth().currentUser.sendEmailVerification();
     }).catch(function (error) {
       var errorCode = error.code;
@@ -91,8 +98,13 @@ class Fire {
 
   createNewGroup = (name,type,university,photouri) =>{
     var key = this.refGroup.push().key
+    const userGroup = {
+      name,
+      key
+    }
     var leader = firebase.auth().currentUser.uid
     university = university.toString()
+    firebase.database().ref('users/'+firebase.auth().currentUser.uid+'/groups/').push(userGroup)
     const GroupInfo = {
       name,
       type,
@@ -102,6 +114,16 @@ class Fire {
     }
     this.refImages.child('groupImages/'+key).put(photouri)
     this.refGroup.push(GroupInfo)
+  }
+
+  ListGroup = async() => {
+    await firebase.database().ref('users/'+firebase.auth().currentUser.uid+'/groups/')
+    .once('value',snapshot=>{
+      snapshot.forEach(val=>{
+        groupName.push(val.val().name)
+        groupKey.push(val.val().key)
+      })
+    })
   }
 
 
